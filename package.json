@@ -2,6 +2,7 @@
   "name": "ml-trial",
   "version": "0.0.0",
   "scripts": {
+    "dev": "npm start",
     "start": "vite",
     "build": "vite build",
     "preview": "vite preview",
