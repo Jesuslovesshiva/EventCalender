@@ -101,7 +101,7 @@ const TrainingPlan = () => {
                 </div>
                 {isSameDay(day, now) && (
                   <div className="relative">
-                    <div className="absolute -inset-x-1.5 bottom-5 h-1 rounded-sm bg-blue-900" />
+                    <div className="absolute -inset-x-1 bottom-5 h-1 rounded-sm bg-blue-900" />
                   </div>
                 )}
               </div>
