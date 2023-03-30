@@ -13,11 +13,7 @@ const DEFAULT_QUERY = {
 }
 
 function createQuery({offset = 0}) {
-  return merge(
-    {},
-    DEFAULT_QUERY,
-    {page: {...DEFAULT_QUERY.page, offset}},
-  )
+  return merge({}, DEFAULT_QUERY, {page: {...DEFAULT_QUERY.page, offset}})
 }
 
 function* watchLoad({payload: {id, offset}}) {

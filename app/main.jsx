@@ -15,6 +15,8 @@ import store, {actionEmitter} from './configure-store'
 
 import './index.css'
 
+import '@fortawesome/fontawesome-free/css/all.css'
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

@@ -21,47 +21,18 @@ import {startOfDay, startOfWeek, addDays, format, isSameDay} from 'date-fns'
 
 import cx from 'classnames'
 
+import EventCard from './EventCard'
 import {de} from 'date-fns/locale'
 
 import Calendar from '@/components/molecules/Calendar'
 
 import DateCyclePicker from '@/components/molecules/DateCyclePicker'
 
-import EventCard from './EventCard'
-import {EVENT_COLORS} from '@/modules/event/results/types'
-
-import {faThumbsUp} from '@fortawesome/free-solid-svg-icons'
-
-const mockedEventData = [
-  {
-    id: '1',
-    title: 'Training',
-    type: 'training',
-    start: new Date('2023-03-30T10:00:00Z'),
-    location: 'Training Ground',
-    participants: ['John Doe', 'Jane Doe'],
-    attachments: [],
-    exercises: [],
-    icon: faThumbsUp
-  },
-  {
-    id: '2',
-    title: 'Team',
-    type: 'other',
-    start: new Date('2023-04-01T14:00:00Z'),
-    location: 'Conference Room',
-    participants: ['John Doe', 'Jane Doe', 'Bob Smith'],
-    attachments: [],
-    exercises: [],
-    icon: faThumbsUp
-  }
-]
 const BASE_PATH = getPathById([
   ROUTE_IDS.HOME,
   TRAINING_PLAN_BRANCH_ID,
   TRAINING_PLAN_ROUTE_IDS.ROOT
 ])
-
 const ROUTES = createRoutes(BASE_PATH)
 
 const TrainingPlan = () => {
@@ -140,14 +111,11 @@ const TrainingPlan = () => {
             {updatedDays.map((day, index) => (
               <div
                 key={day.getTime()}
-                className={`bg-secondary border border-gray-300 p-0.5 flex-1 h-full overflow-auto relative ${
+                className={`bg-secondary border border-gray-300 p-3 flex-1 h-full overflow-auto relative ${
                   day.getDate() === now.getDate() ? 'bg-white' : ''
                 }`}
               >
-                {/* evencard with mock data */}
-                {mockedEventData.map(event => (
-                  <EventCard key={event.id} event={event} day={day} />
-                ))}
+                {/* Render the EventCard component for the current day */}
               </div>
             ))}
           </div>
