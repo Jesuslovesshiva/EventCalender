@@ -17,7 +17,8 @@ import EventResultsInjector from '@/injectors/event/ResultsInjector'
 import messages from './messages'
 import createRoutes from './modal-routes'
 
-import {format, startOfWeek, addDays, startOfDay} from 'date-fns'
+import {startOfDay, startOfWeek, addDays, format, isSameDay} from 'date-fns'
+
 import cx from 'classnames'
 
 import EventCard from './EventCard'
@@ -97,8 +98,12 @@ const TrainingPlan = () => {
                   <div className="text-lg ml-2 relative">
                     {format(day, 'dd.MM.')}
                   </div>
-                  {day.getDate() === now.getDate() && <div className=""></div>}
                 </div>
+                {isSameDay(day, now) && (
+                  <div className="relative">
+                    <div className="absolute -inset-x-1.5 bottom-5 h-1 rounded-sm bg-blue-900" />
+                  </div>
+                )}
               </div>
             ))}
           </div>
