@@ -18,7 +18,10 @@ const PageHeader = props => {
         <h1 className="shrink-0 grow-0 mr-3 font-page-heading text-primary">
           {title}
         </h1>
+
         {props.leftSlot}
+        {props.dateCyclePicker}
+        {/* move here */}
       </div>
       <div className="justify-self-center">{props.centerSlot}</div>
       <div className="justify-self-end">{props.rightSlot}</div>
@@ -31,14 +34,16 @@ PageHeader.propTypes = {
   className: PropTypes.string,
   leftSlot: PropTypes.node,
   rightSlot: PropTypes.node,
-  title: customPropTypes.Translatable.isRequired
+  title: customPropTypes.Translatable.isRequired,
+  dateCyclePicker: PropTypes.node // <-- Add this
 }
 
 PageHeader.defaultProps = {
   centerSlot: null,
   className: null,
   leftSlot: null,
-  rightSlot: null
+  rightSlot: null,
+  dateCyclePicker: null // <-- Add this
 }
 
 export default PageHeader
