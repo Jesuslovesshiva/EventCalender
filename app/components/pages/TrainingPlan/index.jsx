@@ -2,7 +2,7 @@ import React, {useState, useCallback} from 'react'
 import ModalRouter from '@/components/molecules/ModalRouter'
 import PageHeader from '@/components/molecules/PageHeader'
 import {
-  CALENDAR_MODULE_ID,
+  // CALENDAR_MODULE_ID,
   TRAINING_PLAN_MODULE_ID
 } from '@/components/pages/TrainingPlan/constants'
 import {ROUTE_IDS} from '@/components/routes'
@@ -23,14 +23,25 @@ import cx from 'classnames'
 
 import {de} from 'date-fns/locale'
 
-import Calendar from '@/components/molecules/Calendar'
+// import Calendar from '@/components/molecules/Calendar'
 
 import DateCyclePicker from '@/components/molecules/DateCyclePicker'
 
 import EventCard from './EventCard'
-import {EVENT_COLORS} from '@/modules/event/results/types'
+// import {EVENT_COLORS} from '@/modules/event/results/types'
 
-import {faThumbsUp} from '@fortawesome/free-solid-svg-icons'
+// <FontAwesomeIcon icon="fa-solid fa-image" />
+// <FontAwesomeIcon icon="fa-solid fa-circle-play" />
+// <FontAwesomeIcon icon="fa-solid fa-file-lines" />
+// <FontAwesomeIcon icon="fa-solid fa-video" />
+
+// <FontAwesomeIcon icon="fa-regular fa-clock" />
+
+// <FontAwesomeIcon icon="fa-solid fa-up-from-line" />
+
+// import {MODAL_COLORS} from '@/components/atoms/modal'
+
+import icons from './icons'
 
 const mockedEventData = [
   {
@@ -38,24 +49,104 @@ const mockedEventData = [
     title: 'Training',
     type: 'training',
     start: new Date('2023-03-30T10:00:00Z'),
-    location: 'Training Ground',
-    participants: ['John Doe', 'Jane Doe'],
+    location: 'P1',
+    locationIcon: icons.locationDot,
+    participantsCount: '13',
+    participantsIcon: icons.user,
+    // color: MODAL_COLORS.RED,
     attachments: [],
-    exercises: [],
-    icon: faThumbsUp
+    exercises: [
+      {
+        name: 'Aktivierung',
+        description: 'Aktivierung, Qualität, -viele Ballkontakte'
+      },
+      {
+        name: '5vs5 +2 (+TW Rondo',
+        description: 'This is the description'
+      },
+      {
+        name: 'Battle Passen Spielafubau',
+        description: 'This is the description'
+      },
+      {
+        name: 'Rondo Spielaufbau',
+        description: 'This is the description'
+      }
+    ],
+    iconImage: icons.image,
+    iconPlay: icons.circlePlay,
+    iconFile: icons.fileLines,
+    iconVideo: icons.video,
+    iconClock: icons.clock,
+    iconUpload: icons.personArrowUpFromLine,
+    iconTarget: icons.iconCrosshairs
   },
   {
     id: '2',
-    title: 'Team',
-    type: 'other',
-    start: new Date('2023-04-01T14:00:00Z'),
-    location: 'Conference Room',
-    participants: ['John Doe', 'Jane Doe', 'Bob Smith'],
+    title: 'Training',
+    type: 'training',
+    start: new Date('2023-03-30T10:00:00Z'),
+    location: 'P1',
+    participantsCount: '13',
+    locationIcon: icons.locationDot,
+    participantsIcon: icons.user,
     attachments: [],
-    exercises: [],
-    icon: faThumbsUp
+    exercises: [
+      {
+        name: 'Aktivierung',
+        description: 'This is the description'
+      },
+      {
+        name: '5vs5 +2 (+TW Rondo',
+        description: 'This is the description'
+      },
+      {
+        name: 'Battle Passen Spielafubau',
+        description: 'This is the description'
+      },
+      {
+        name: 'Rondo Spielaufbau',
+        description: 'This is the description'
+      }
+    ],
+    iconImage: icons.image,
+    iconPlay: icons.circlePlay,
+    iconFile: icons.fileLines,
+    iconVideo: icons.video,
+    iconClock: icons.clock,
+    iconUpload: icons.personArrowUpFromLine,
+    iconTarget: icons.iconCrosshairs
+  },
+  {
+    id: '3',
+    title: 'Team',
+    type: 'team',
+    start: new Date('2023-04-01T14:00:00Z'),
+    location: 'P4',
+    participantsCount: '6',
+    locationIcon: icons.locationDot,
+    participantsIcon: icons.user,
+    attachments: [],
+    exercises: [
+      {
+        name: 'Lorem Ipsum',
+        description: 'This is the description'
+      },
+      {
+        name: 'Und so',
+        description: 'This is the description'
+      }
+    ],
+    iconImage: icons.image,
+    iconPlay: icons.circlePlay,
+    iconFile: icons.fileLines,
+    iconVideo: icons.video,
+    iconClock: icons.clock,
+    iconUpload: icons.personArrowUpFromLine,
+    iconTarget: icons.iconCrosshairs
   }
 ]
+
 const BASE_PATH = getPathById([
   ROUTE_IDS.HOME,
   TRAINING_PLAN_BRANCH_ID,
@@ -67,9 +158,9 @@ const ROUTES = createRoutes(BASE_PATH)
 const TrainingPlan = () => {
   const now = startOfDay(new Date())
   const startOfThisWeek = startOfWeek(now, {weekStartsOn: 1})
-  const days = Array(7)
-    .fill()
-    .map((_, i) => addDays(startOfThisWeek, i))
+  // const days = Array(7)
+  //   .fill()
+  //   .map((_, i) => addDays(startOfThisWeek, i))
 
   const [state, events] = useEventResults({
     id: TRAINING_PLAN_MODULE_ID,
@@ -119,12 +210,12 @@ const TrainingPlan = () => {
                 )}
               >
                 <div className="flex">
-                  <div className="font-bold text-lg">
+                  <div className="font-bold text-xl ml-2 ">
                     {format(day, 'EEEE', {locale: de})
                       .substring(0, 2)
                       .toUpperCase()}
                   </div>
-                  <div className="text-lg ml-2 relative">
+                  <div className="text-xl ml-2 relative">
                     {format(day, 'dd.MM.')}
                   </div>
                 </div>
@@ -136,7 +227,7 @@ const TrainingPlan = () => {
               </div>
             ))}
           </div>
-          <div className="flex flex-row h-full mx-4 overflow-y-auto">
+          <div className="flex flex-row h-full mx-4 overflow-y-auto ">
             {updatedDays.map((day, index) => (
               <div
                 key={day.getTime()}
