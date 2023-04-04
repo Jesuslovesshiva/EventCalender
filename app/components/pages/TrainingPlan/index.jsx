@@ -41,111 +41,7 @@ import EventCard from './EventCard'
 
 // import {MODAL_COLORS} from '@/components/atoms/modal'
 
-import icons from './icons'
-
-const mockedEventData = [
-  {
-    id: '1',
-    title: 'Training',
-    type: 'training',
-    start: new Date('2023-03-30T10:00:00Z'),
-    location: 'P1',
-    locationIcon: icons.locationDot,
-    participantsCount: '13',
-    participantsIcon: icons.user,
-    // color: MODAL_COLORS.RED,
-    attachments: [],
-    exercises: [
-      {
-        name: 'Aktivierung',
-        description: 'Aktivierung, Qualität, -viele Ballkontakte'
-      },
-      {
-        name: '5vs5 +2 (+TW Rondo',
-        description: 'This is the description'
-      },
-      {
-        name: 'Battle Passen Spielafubau',
-        description: 'This is the description'
-      },
-      {
-        name: 'Rondo Spielaufbau',
-        description: 'This is the description'
-      }
-    ],
-    iconImage: icons.image,
-    iconPlay: icons.circlePlay,
-    iconFile: icons.fileLines,
-    iconVideo: icons.video,
-    iconClock: icons.clock,
-    iconUpload: icons.personArrowUpFromLine,
-    iconTarget: icons.iconCrosshairs
-  },
-  {
-    id: '2',
-    title: 'Training',
-    type: 'training',
-    start: new Date('2023-03-30T10:00:00Z'),
-    location: 'P1',
-    participantsCount: '13',
-    locationIcon: icons.locationDot,
-    participantsIcon: icons.user,
-    attachments: [],
-    exercises: [
-      {
-        name: 'Aktivierung',
-        description: 'This is the description'
-      },
-      {
-        name: '5vs5 +2 (+TW Rondo',
-        description: 'This is the description'
-      },
-      {
-        name: 'Battle Passen Spielafubau',
-        description: 'This is the description'
-      },
-      {
-        name: 'Rondo Spielaufbau',
-        description: 'This is the description'
-      }
-    ],
-    iconImage: icons.image,
-    iconPlay: icons.circlePlay,
-    iconFile: icons.fileLines,
-    iconVideo: icons.video,
-    iconClock: icons.clock,
-    iconUpload: icons.personArrowUpFromLine,
-    iconTarget: icons.iconCrosshairs
-  },
-  {
-    id: '3',
-    title: 'Team',
-    type: 'team',
-    start: new Date('2023-04-01T14:00:00Z'),
-    location: 'P4',
-    participantsCount: '6',
-    locationIcon: icons.locationDot,
-    participantsIcon: icons.user,
-    attachments: [],
-    exercises: [
-      {
-        name: 'Lorem Ipsum',
-        description: 'This is the description'
-      },
-      {
-        name: 'Und so',
-        description: 'This is the description'
-      }
-    ],
-    iconImage: icons.image,
-    iconPlay: icons.circlePlay,
-    iconFile: icons.fileLines,
-    iconVideo: icons.video,
-    iconClock: icons.clock,
-    iconUpload: icons.personArrowUpFromLine,
-    iconTarget: icons.iconCrosshairs
-  }
-]
+import mockedEventData from './mockEventData'
 
 const BASE_PATH = getPathById([
   ROUTE_IDS.HOME,
@@ -158,9 +54,6 @@ const ROUTES = createRoutes(BASE_PATH)
 const TrainingPlan = () => {
   const now = startOfDay(new Date())
   const startOfThisWeek = startOfWeek(now, {weekStartsOn: 1})
-  // const days = Array(7)
-  //   .fill()
-  //   .map((_, i) => addDays(startOfThisWeek, i))
 
   const [state, events] = useEventResults({
     id: TRAINING_PLAN_MODULE_ID,
@@ -182,10 +75,14 @@ const TrainingPlan = () => {
     .fill()
     .map((_, i) => addDays(startDate, i))
 
+  const hasEventsForDay = (day, events) => {
+    return events.some(event => isSameDay(new Date(event.date), day))
+  }
+
   return (
     <ModalRouter base={BASE_PATH} routes={ROUTES}>
       <EventResultsInjector />
-      <div className="h-full flex flex-col">
+      <div className="h-full flex flex-col overflow-hidden">
         <div>
           <PageHeader
             className="relative z-20"
@@ -199,7 +96,7 @@ const TrainingPlan = () => {
           />
         </div>
 
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-full ">
           <div className="flex sticky top-0 z-10 bg-secondary mx-4">
             {updatedDays.map(day => (
               <div
@@ -210,12 +107,12 @@ const TrainingPlan = () => {
                 )}
               >
                 <div className="flex">
-                  <div className="font-bold text-xl ml-2 ">
+                  <div className="font-bold text-[16px] ml-2 ">
                     {format(day, 'EEEE', {locale: de})
                       .substring(0, 2)
                       .toUpperCase()}
                   </div>
-                  <div className="text-xl ml-2 relative">
+                  <div className="text-[16px] ml-2 relative">
                     {format(day, 'dd.MM.')}
                   </div>
                 </div>
@@ -234,6 +131,12 @@ const TrainingPlan = () => {
                 className={`bg-secondary border border-gray-300 p-0.5 flex-1 h-full overflow-auto relative ${
                   day.getDate() === now.getDate() ? 'bg-white' : ''
                 }`}
+                style={{
+                  overflowY: 'scroll',
+                  WebkitScrollbar: {display: 'none'},
+                  msOverflowStyle: 'none',
+                  scrollbarWidth: 'none'
+                }}
               >
                 {/* evencard with mock data */}
                 {mockedEventData.map(event => (

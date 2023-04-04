@@ -45,8 +45,11 @@ const createEventDescription = () => {
 const LOCATIONS = 5
 const createEventLocation = () => `P${Math.ceil(Math.random() * LOCATIONS)}`
 
-const createFile = () => ({type: faker.helpers.arrayElement(AVAILABLE_FILE_TYPES)})
-const createFiles = () => Array.from({length: faker.datatype.number({max: 5, min: 0})}, createFile)
+const createFile = () => ({
+  type: faker.helpers.arrayElement(AVAILABLE_FILE_TYPES)
+})
+const createFiles = () =>
+  Array.from({length: faker.datatype.number({max: 5, min: 0})}, createFile)
 
 const createExercise = () => ({
   description: faker.lorem.sentence(),
@@ -54,11 +57,14 @@ const createExercise = () => ({
   files: createFiles(),
   guestParticipantsCount: faker.datatype.number({max: 20, min: 0}),
   participantsCount: faker.datatype.number({max: 20, min: 1}),
-  title: faker.random.words(),
+  title: faker.random.words()
 })
 const createEventExercises = type => {
-  if(type === EVENT_TYPES.TRAINING) {
-    return Array.from({length: faker.datatype.number({max: 5, min: 0})}, createExercise)
+  if (type === EVENT_TYPES.TRAINING) {
+    return Array.from(
+      {length: faker.datatype.number({max: 5, min: 0})},
+      createExercise
+    )
   }
   return null
 }
@@ -91,7 +97,9 @@ const getRandomEvents = ({
       const exercises = createEventExercises(type)
 
       return {
-        endDate: faker.date.between(eventDate, add(eventDate, {hours: 4})).toISOString(),
+        endDate: faker.date
+          .between(eventDate, add(eventDate, {hours: 4}))
+          .toISOString(),
         guestParticipantsCount: faker.datatype.number({max: 20, min: 0}),
         id: faker.datatype.uuid(),
         participantsCount: faker.datatype.number({max: 20, min: 1}),
@@ -101,14 +109,18 @@ const getRandomEvents = ({
         ...(description && {description}),
         ...(location && {location}),
         ...(files && {files}),
-        ...(exercises && {exercises}),
+        ...(exercises && {exercises})
       }
     })
 }
 
-const getRandomEventsForQuery = ({filter: {startDate = startOfToday(), endDate = endOfToday()} = {}}) => {
-  const events = eachDayOfInterval({end: endDate, start: startDate})
-    .reduce((acc, date) => ([...acc, ...getRandomEvents({date})]), [])
+const getRandomEventsForQuery = ({
+  filter: {startDate = startOfToday(), endDate = endOfToday()} = {}
+}) => {
+  const events = eachDayOfInterval({end: endDate, start: startDate}).reduce(
+    (acc, date) => [...acc, ...getRandomEvents({date})],
+    []
+  )
 
   return {
     entities: {
@@ -123,8 +135,4 @@ const getRandomEventsForQuery = ({filter: {startDate = startOfToday(), endDate =
   }
 }
 
-
-export {
-  getRandomEvents,
-  getRandomEventsForQuery,
-}
+export {getRandomEvents, getRandomEventsForQuery}

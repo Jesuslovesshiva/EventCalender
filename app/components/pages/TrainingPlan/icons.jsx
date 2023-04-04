@@ -6,7 +6,7 @@ import {
   faFileLines,
   faVideo,
   faClock,
-  faPersonArrowUpFromLine,
+  faArrowUpFromBracket,
   faLocationCrosshairs
 } from '@fortawesome/free-solid-svg-icons'
 
@@ -18,7 +18,7 @@ export const icons = {
   fileLines: faFileLines,
   video: faVideo,
   clock: faClock,
-  personArrowUpFromLine: faPersonArrowUpFromLine,
+  upload: faArrowUpFromBracket,
   target: faLocationCrosshairs
 }
 

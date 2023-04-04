@@ -12,49 +12,32 @@ import icons from './icons'
 const getBackgroundColorForEventType = eventType => {
   switch (eventType) {
     case 'covid':
-      return 'bg-gradient-to-b from-orange-100 to-white'
+      return 'bg-gradient-to-b from-amber-100 to-white'
     case 'heimspiel':
-      return 'bg-gradient-to-b from-rose-100 to-white'
+      return 'bg-gradient-to-b from-rose-200 to-white'
     default:
-      return 'bg-gradient-to-b from-stone-100 to-white'
+      return 'bg-gray-200'
   }
 }
 
 function LocationBadge({location, locationIcon}) {
   return (
-    <div className="bg-neutral-200 border-2 border-neutral-300 rounded-md p-1 px-2 font-thin text-[15px] mr-3 flex ">
+    <div className="bg-gray-300 border border-gray-400 rounded-md p-1 px-2 font-thin text-[15px] mr-3 flex ">
       {location} <FontAwesomeIcon icon={locationIcon} className="ml-1" />
     </div>
   )
 }
 
-function ParticipantsBadge({
-  participantsCount,
-  participantsIcon,
-  clock,
-  duration,
-  separate = false
-}) {
+function ParticipantsBadge({participantsCount, participantsIcon}) {
   return (
-    <div className="rounded-xl bg-white px-2 shadow flex mx-2">
-      <div className="flex bg-gradient-to-l from-gray-100">
-        <FontAwesomeIcon icon={clock} className="text-[14px] mr-1 py-1" />
-        <div
-          className={`font-bold text-[14px] ${
-            separate ? 'pr-2 py-1 border-r' : ''
-          }`}
-        >
-          {duration}
-        </div>
-      </div>
-      <div
-        className={`flex p-1 ${participantsCount ? 'space-x-1' : ''} ${
-          separate ? 'pl-2' : ''
-        }`}
-      >
-        <FontAwesomeIcon icon={participantsIcon} className="text-[14px]" />
-        <div className="font-bold text-[14px]">{participantsCount}</div>
-      </div>
+    <div
+      className={`rounded-xl bg-white p-1 px-2 shadow flex mx-2 ${
+        participantsCount ? 'space-x-1' : ''
+      }`}
+      style={{maxWidth: '80px'}}
+    >
+      <FontAwesomeIcon icon={participantsIcon} className="text-[14px] " />
+      <p className="font-bold text-[14px] ">{participantsCount}</p>
     </div>
   )
 }
@@ -81,9 +64,7 @@ function EventCard({event, day}) {
     participantsIcon,
     type,
     exercises,
-    upload,
-    clock,
-    duration
+    upload
   } = event
 
   const backgroundColor = getBackgroundColorForEventType(type)
@@ -100,17 +81,17 @@ function EventCard({event, day}) {
                 <div className="flex justify-between items-center space-x-2 m-3 pb-1 w-full">
                   <div className="flex items-center space-x-2">
                     {type == 'heimspiel' ? (
-                      <div className="bg-rose-100 border-2 border-red-200 rounded-md p-1 font-thin text-[15px]">
+                      <div className="bg-red-100 border border-red-200 rounded-md p-1 font-thin text-[15px]">
                         {format(event.start, 'HH:mm')}
                       </div>
                     ) : null}
                     {type == 'training' ? (
-                      <div className="bg-neutral-200 border-2 border-neutral-300 rounded-md p-1 font-thin text-[15px]">
+                      <div className="bg-gray-300 border border-gray-400 rounded-md p-1 font-thin text-[15px]">
                         {format(event.start, 'HH:mm')}
                       </div>
                     ) : null}
                     {type == 'covid' ? (
-                      <div className="bg-orange-100 border-2 border-orange-200 rounded-md p-1 font-thin text-[15px]">
+                      <div className="bg-yellow-100 border border-yellow-200 rounded-md p-1 font-thin text-[15px]">
                         {format(event.start, 'HH:mm')}
                       </div>
                     ) : null}
@@ -185,9 +166,6 @@ function EventCard({event, day}) {
                   <ParticipantsBadge
                     participantsCount={exercise.participantsCount || 0}
                     participantsIcon={participantsIcon}
-                    clock={clock}
-                    duration={exercise.duration}
-                    separate={true}
                   />
                   {exercise.files && exercise.files.length > 0 && (
                     <div
