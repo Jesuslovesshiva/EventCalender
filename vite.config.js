@@ -39,5 +39,8 @@ export default defineConfig({
       }
     }),
     svgrPlugin()
-  ]
+  ],
+  build: {
+    outDir: 'dist'
+  }
 })

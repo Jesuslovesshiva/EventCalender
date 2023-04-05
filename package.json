@@ -4,9 +4,10 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "dev": "npm start",
+    "dev": "vite",
     "start": "vite",
     "build": "vite build",
+    "serve": "vite preview",
     "preview": "vite preview",
     "lint:staged": "lint-staged",
     "lint:all": "npm run lint && npm run lint:ls",
@@ -76,8 +77,10 @@
     "rifm": "^0.12.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.18.5",
-    "@babel/preset-react": "^7.17.12",
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.4",
+    "@babel/preset-env": "^7.21.4",
+    "@babel/preset-react": "^7.18.6",
     "@babel/register": "^7.17.7",
     "@commitlint/cli": "^17.0.2",
     "@commitlint/config-conventional": "^17.0.2",
