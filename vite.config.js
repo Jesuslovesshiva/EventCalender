@@ -8,7 +8,6 @@ import svgrPlugin from 'vite-plugin-svgr'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/EventCalender/',
   resolve: {
     alias: [{
       find: '@/config',
@@ -40,8 +39,5 @@ export default defineConfig({
       }
     }),
     svgrPlugin()
-  ],
-  build: {
-    outDir: 'dist'
-  }
+  ]
 })

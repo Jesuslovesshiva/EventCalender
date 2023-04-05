@@ -1,0 +1,19 @@
+const testtypes = {
+  training: {
+    color: 'red',
+    backgroundColor: 'bg-red-200'
+  },
+  team: {
+    color: 'green',
+    backgroundColor: '#D1FAE5'
+  },
+  game: {
+    color: 'blue',
+    backgroundColor: 'background-red'
+  },
+  type: {
+    backgroundColor: '#ffcccc'
+  }
+}
+
+export default testtypes
