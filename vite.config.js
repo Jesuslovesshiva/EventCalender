@@ -8,6 +8,7 @@ import svgrPlugin from 'vite-plugin-svgr'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  build: '/training-plan/',
   resolve: {
     alias: [{
       find: '@/config',
