@@ -1,6 +1,7 @@
 {
   "name": "ml-trial",
   "version": "0.0.0",
+  "homepage": "https://jesuslovesshiva.github.io/training-plan/",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
